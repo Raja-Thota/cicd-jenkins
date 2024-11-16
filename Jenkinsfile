@@ -1,11 +1,9 @@
 pipeline {
     agent none
     stages {
-        stage('Build') {
-           
+        stage('Git Checkout') {
             steps {
-                echo 'Hello World'
+                git branch: "prod",url: 'https://github.com/Raja-Thota/cicd-jenkins.git'
             }
         }
-    }
 }
