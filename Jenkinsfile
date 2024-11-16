@@ -42,5 +42,15 @@ stage('Quality Gate') {
                 }
             }
         }
+         stage('Maven Build') {
+            steps {
+                sh 'mvn package'
+            }
+        }
+        stage('Maven Deploy') {
+            steps {
+                sh 'mvn deploy' 
+            }
+        }
 }
 }
