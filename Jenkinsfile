@@ -60,5 +60,14 @@ stage('Quality Gate') {
                 sh 'mvn deploy' 
             }
         }
+        stage('Build Docker Image and Tag') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                    sh 'docker build -t thotaraja24/boardshack:latest .'
+                }
+            }
+        }
+     }  
 }
 }
