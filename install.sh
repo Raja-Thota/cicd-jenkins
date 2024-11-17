@@ -70,3 +70,11 @@ eksctl create cluster \
   --max-pods-per-node 110 \
   --ssh-access \
   --ssh-public-key git  # Replace with your SSH key name
+
+  #Plugins Installed
+Eclipse Temurin JDK
+Pipeline Maven
+Sonarqube Scanner
+Docker
+Docker Pipeline
+Kubernetes

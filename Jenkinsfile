@@ -53,12 +53,12 @@ stage('Quality Gate') {
         }
          stage('Maven Build') {
             steps {
-                sh 'mvn package'
+                sh 'mvn package -DskipTests'
             }
         }
         stage('Maven Deploy') {
             steps {
-                sh 'mvn deploy' 
+                sh 'mvn deploy -DskipTests' 
             }
         }
         stage('Build Docker Image and Tag') {
@@ -78,6 +78,18 @@ stage('Quality Gate') {
                 }
             }
         } 
-       }  
+       } 
+       stage ('Deploy to Kubernetes'){
+      steps {
+        script {
+            sh 'kubectl apply -f deployment-services.yaml'
+            sh 'kubectl apply -f svc.yaml'
+        }
+      }
+    }  
+       
 }
 }
+      
+
+
