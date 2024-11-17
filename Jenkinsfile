@@ -5,6 +5,7 @@ pipeline {
     }
     environment {
         SCANNER_HOME= tool 'sonar-scanner'
+        DOCKER_IMAGE= "thotaraja24/boardshack:${env.BUILD_NUMBER}"
     }
     stages {
         stage('Git Checkout') {
@@ -64,10 +65,19 @@ stage('Quality Gate') {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
-                    sh 'docker build -t thotaraja24/boardshack:latest .'
+                    sh 'docker build -t ${DOCKER_IMAGE} .'
                 }
             }
         }
-     }  
+     } 
+     stage('Push Docker Image') {
+            steps {
+                script {
+                    withDockerRegistry(credentialsId: 'docker-cred', toolName: 'docker') {
+                        sh 'docker push ${DOCKER_IMAGE}'
+                }
+            }
+        } 
+       }  
 }
 }
