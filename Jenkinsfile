@@ -12,6 +12,14 @@ pipeline {
                 git branch: "main", credentialsId: 'git-cred', url: 'https://github.com/Raja-Thota/cicd-jenkins.git'
             }
         }
+        stage('Maven Versioning') {
+            steps {
+                script {
+                    sh 'mvn versions:set -DnewVersion=1.0.${BUILD_NUMBER}'
+                }
+                
+            }
+        }
         stage('Maven Compile') {
             steps {
                 sh 'mvn compile'
